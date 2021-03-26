@@ -9,12 +9,13 @@ const Todo = ({ text, todos, todo, setTodos }) => {
 
   const deleteHandler = () => {
     setTodos(todos.filter((elements) => elements.id !== todo.id));
-    console.log(todo);
+    // console.log(todo);
   };
+
   const completeHandler = () => {
     setTodos(
       todos.map((item) => {
-        console.log('comp',item); //check items
+        // console.log('comp',item); //check items
           if (item.id === todo.id) {
               return {           
               ...item,completed:!item.completed
@@ -37,6 +38,8 @@ const Todo = ({ text, todos, todo, setTodos }) => {
           <DeleteIcon style={{ backgroundColor: "#338b88" }} />
         </Button>
       </Grid>
+
+      
     </div>
   );
 };

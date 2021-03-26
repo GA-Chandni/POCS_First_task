@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
-import "semantic-ui-css/semantic.min.css";
 import { Header } from "semantic-ui-react";
 import Form from "./components/form";
 import TodoList from "./components/todoList";
@@ -13,6 +12,19 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [status, setStatus] = useState("all");
   const [filterTodos, setFilterTodos] = useState([]);
+  // const [count,setCount]=useState([0]);
+
+  //refresh page get empty array in localstorage
+  useEffect(() => {
+    getLocalStroageTodos();
+  }, []);
+
+  //filter handles here
+  useEffect(() => {
+    // console.log('hey rightgit')
+    filterHandler();
+    saveLocalTodos();
+  }, [todos, status]);
 
   //function and events
   const filterHandler = () => {
@@ -22,13 +34,33 @@ function App() {
         break;
 
       case "active":
-        setFilterTodos(todos.filter((todo) => todo.completed === true));
+        setFilterTodos(todos.filter((todo) => todo.completed === false));
         break;
       default:
         setFilterTodos(todos);
         break;
     }
   };
+
+  //save to local strorage :
+  const saveLocalTodos = () => {
+    let JSONLocalData = JSON.stringify(todos);
+    localStorage.setItem("todos", JSONLocalData); //saving
+  };
+
+  //for refresh page get empty array
+  const getLocalStroageTodos = () => {
+    if (localStorage.getItem("todos") === null) {
+      let JSONDataArray = JSON.stringify([]);
+      localStorage.setItem("todos", JSONDataArray); //pushing
+    } else {
+      let JSONLocalStrorageData = JSON.parse(localStorage.getItem("todos"));
+      // console.log(JSONLocalStrorageData); //check the pre data in localStorage
+      setTodos(JSONLocalStrorageData);
+    }
+  };
+
+  // console.log('filterTodos--', filterTodos);
 
   return (
     <div className="App">
@@ -39,8 +71,9 @@ function App() {
         setTodos={setTodos}
         setinputText={setinputText}
         setStatus={setStatus}
+        // filterTodos={filterTodos}
       />
-      <TodoList todos={todos} setTodos={setTodos} />
+      <TodoList todos={todos} setTodos={setTodos} filterTodos={filterTodos} />
     </div>
   );
 }

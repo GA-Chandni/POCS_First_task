@@ -2,29 +2,43 @@ import React from "react";
 import { Grid, Button, Input } from "@material-ui/core/";
 import "./style.css";
 
-const Form = ({ setinputText, todos, setTodos ,inputText,setStatus}) => {
+const Form = ({
+  setinputText,
+  todos,
+  setTodos,
+  inputText,
+  setStatus,
+  todo,
+}) => {
 
-  //for input 
+  //for input
   const inputTextHandler = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setinputText(e.target.value);
+    
   };
 
   //for sumbit
   const submitTodoHandler = (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     setTodos([
-        ...todos,
-         { text : inputText, completed: false , id:Math.random()* 1000}]);
-         setinputText("");
+      ...todos,
+      { text: inputText, completed: false, id: Math.random() * 1000 },
+    ]);
+    setinputText("");
   };
 
+  //select option is completed or not
+  const statusHandler = (e) => {
+    // console.log(e.target.value);
+    setStatus(e.target.value); //form checking in react devtools
+    // setFilterTodos(e.target.value)
+  };
 
-  //select option is completed or not 
-const statusHandler=(e)=>{
-  console.log(e.target.value);
-  setStatus(e.target.value) //form checking in react devtools
-}
+  const handleClaerALLRemoveItem = (e) => {
+    e.preventDefault();
+    setTodos(todos.filter((todo) => todo.item !== todos.item));
+  };
   return (
     <div>
       <form noValidate autoComplete="off">
@@ -38,23 +52,29 @@ const statusHandler=(e)=>{
               onChange={inputTextHandler}
             />
             <Button
-              variant="contained"
+              disabled={todos === ""}
               color="primary"
               className="todo-button"
               type="submit"
               onClick={submitTodoHandler}
-            >
-              Submit
-            </Button>
+            ></Button>
           </Grid>
           <Grid item xs={1}>
             <div className="select">
-              <select name="todos" className="filter-todo" onClick={statusHandler}>
+              <select
+                name="todos"
+                className="filter-todo"
+                onClick={statusHandler}
+              >
                 <option value="all">All</option>
                 <option value="completed">completed</option>
                 <option value="active">Active</option>
+                <option value="clearComplete">ClearAll</option>
               </select>
             </div>
+          </Grid>
+          <Grid item xs={3}>
+            <button onClick={handleClaerALLRemoveItem}>Clear All</button>
           </Grid>
         </Grid>
       </form>
