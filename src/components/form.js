@@ -76,7 +76,6 @@ const Form = ({
                 <option value="all">All</option>
                 <option value="completed">completed</option>
                 <option value="active">Active</option>
-                <option value="clearComplete">ClearAll</option>
               </select>
             </div>
           </Grid>
