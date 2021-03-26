@@ -1,6 +1,11 @@
+//NPM PACAKGE
 import React, { useState, useEffect } from "react";
 import "./App.css";
+
+//SEMANTIC UI 
 import { Header } from "semantic-ui-react";
+
+//LOCAL FILES
 import Form from "./components/form";
 import TodoList from "./components/todoList";
 
@@ -24,15 +29,14 @@ function App() {
     // console.log('hey rightgit')
     filterHandler();
     saveLocalTodos();
-  }, [todos, status]);
+  }, [todos, status]); 
 
-  //function and events
+  //filterable like all completed active
   const filterHandler = () => {
     switch (status) {
       case "completed":
         setFilterTodos(todos.filter((todo) => todo.completed === true));
         break;
-
       case "active":
         setFilterTodos(todos.filter((todo) => todo.completed === false));
         break;
@@ -48,7 +52,7 @@ function App() {
     localStorage.setItem("todos", JSONLocalData); //saving
   };
 
-  //for refresh page get empty array
+  //for refresh page get empty array old data are not removing still with page
   const getLocalStroageTodos = () => {
     if (localStorage.getItem("todos") === null) {
       let JSONDataArray = JSON.stringify([]);

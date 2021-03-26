@@ -1,5 +1,10 @@
+//NPM PACAKGE
 import React from "react";
+
+//LOCAL FILE
 import Todo from "./todo";
+
+//STYLE FILES
 import "./style.css";
 
 const TodoList = ({text, todos, setTodos ,filterTodos}) => {
@@ -8,6 +13,7 @@ const TodoList = ({text, todos, setTodos ,filterTodos}) => {
   return (
     <div className="todo-container">
       <ul className="todo-list">
+
         {filterTodos.map((todo) => (          //todo instead filtertodos
           <Todo
             todos={todos}

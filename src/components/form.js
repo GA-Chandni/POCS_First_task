@@ -1,7 +1,14 @@
+//NPM PACAKGE
 import React from "react";
+
+//MATERIAL UI
 import { Grid, Button, Input } from "@material-ui/core/";
+
+//STYLE FILE
 import "./style.css";
 
+
+//MAIN FUNCTION
 const Form = ({
   setinputText,
   todos,
